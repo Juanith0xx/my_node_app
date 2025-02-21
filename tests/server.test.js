@@ -7,8 +7,8 @@ beforeAll(() => {
   server = app.listen(9001, () => console.log('Test server running at http://localhost:9001'));
 });
 
-afterAll((done) => {
-  server.close(done); // Cerrar el servidor después de las pruebas
+afterAll(async () => {
+  await new Promise((resolve) => server.close(resolve)); // Cerrar el servidor correctamente
 });
 
 test('GET / should return "Hello World"', async () => {
