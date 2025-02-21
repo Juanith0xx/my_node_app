@@ -1,14 +1,16 @@
 const express = require("express");
 const app = express();
-const port = 9000;
+const port = process.env.PORT || 9000;
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
-});
+// Solo iniciar el servidor si el archivo es ejecutado directamente
+if (require.main === module) {
+  app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}`);
+  });
+}
 
 module.exports = app; // Exportamos para pruebas
-
