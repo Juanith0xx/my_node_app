@@ -1,17 +1,17 @@
 const request = require('supertest');
-const app = require('../server');
+const app = require('../server'); // Importamos la instancia del servidor
 
-let server;
+let server; // Variable para guardar la instancia del servidor
 
 beforeAll(() => {
-  server = app.listen(9000); // Inicia el servidor antes de las pruebas
+  server = app.listen(9001, () => console.log('Test server running at http://localhost:9001'));
 });
 
 afterAll((done) => {
-  server.close(done); // Cierra el servidor después de las pruebas
+  server.close(done); // Cerrar el servidor después de las pruebas
 });
 
 test('GET / should return "Hello World"', async () => {
-  const response = await request(server).get('/');
+  const response = await request(app).get('/');
   expect(response.text).toBe('Hello World');
 });
